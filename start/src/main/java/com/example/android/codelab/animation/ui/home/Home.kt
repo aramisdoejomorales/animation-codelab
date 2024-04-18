@@ -556,7 +556,7 @@ private fun WeatherRow(
 @Composable
 private fun LoadingRow() {
     // TODO 5: Animate this value between 0f and 1f, then back to 0f repeatedly.
-    val infiniteTransition = rememberInfiniteTransition()
+    val infiniteTransition = rememberInfiniteTransition(label = "Aramis")
     val alpha by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
