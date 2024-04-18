@@ -16,6 +16,7 @@
 
 package com.example.android.codelab.animation.ui.home
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -143,19 +144,14 @@ fun Home() {
     // String resources.
     val allTasks = stringArrayResource(R.array.tasks)
     val allTopics = stringArrayResource(R.array.topics).toList()
-
     // The currently selected tab.
     var tabPage by remember { mutableStateOf(TabPage.Home) }
-
     // True if the whether data is currently loading.
     var weatherLoading by remember { mutableStateOf(false) }
-
     // Holds all the tasks currently shown on the task list.
     val tasks = remember { mutableStateListOf(*allTasks) }
-
     // Holds the topic that is currently expanded to show its body.
     var expandedTopic by remember { mutableStateOf<String?>(null) }
-
     // True if the message about the edit feature is shown.
     var editMessageShown by remember { mutableStateOf(false) }
 
@@ -176,12 +172,10 @@ fun Home() {
             editMessageShown = false
         }
     }
-
     // Load the weather at the initial composition.
     LaunchedEffect(Unit) {
         loadWeather()
     }
-
     val lazyListState = rememberLazyListState()
 
     // The background color. The value is changed by the current tab.
@@ -626,6 +620,7 @@ private fun TaskRow(task: String, onRemove: () -> Unit) {
  *
  * @param onDismissed Called when the element is swiped to the edge of the screen.
  */
+@SuppressLint("MultipleAwaitPointerEventScopes", "ReturnFromAwaitPointerEventScope")
 private fun Modifier.swipeToDismiss(
     onDismissed: () -> Unit
 ): Modifier = composed {
@@ -690,7 +685,7 @@ private fun Modifier.swipeToDismiss(
         }
     }.offset {
         // TODO 6-7: Use the animating offset value here.
-        IntOffset(offsetX.value.roundToInt() ,0)
+        IntOffset(offsetX.value.roundToInt(), 0)
     }
 }
 
